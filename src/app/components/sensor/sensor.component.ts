@@ -74,9 +74,7 @@ export class SensorComponent implements OnInit {
   getUnitDataForSensorTypeId(id:any){
 	this.dataService.getAllUnitsForSensorType(id).subscribe((items) => { 
 		this.units = items;
-		console.log(this.units);
 		if(items.length> 0 ) this.selectedUnit = this.units[0].id;
-		console.log(this.selectedUnit);
 	}); 
   }
   
@@ -128,14 +126,12 @@ export class SensorComponent implements OnInit {
 	let sensor:ISensor = this.form.value as ISensor;
 	sensor.unitId=this.selectedUnit+'';
 	this.dataService.editSensor(sensor, this.idSensor).subscribe((message)=>{
-	  console.log(message);
 	  this.onChanged.emit(true);
 	  this.modalService.close();
 	});
   }
   
  cancel(){
-	 console.log(this.form.value);
 	 this.onChanged.emit(true);
 	 this.modalService.close();
   }

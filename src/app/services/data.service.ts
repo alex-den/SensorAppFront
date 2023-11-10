@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,  HttpErrorResponse } from '@angular/common/http';
-import { catchError, throwError, retry, tap, Observable } from 'rxjs';
+import { catchError, throwError, Observable } from 'rxjs';
 import {ISensor} from '../models/sensor';
-import {IItem} from '../models/item';
 
 const DATA_API = 'http://localhost:8080/api/data/';
 
@@ -23,7 +22,6 @@ export class DataService {
   }
   
   getSensorById(id:number): Observable<any>{
-	  console.log("Sensor by id");
 	return this.http.get<any>(DATA_API + 'sensors/'+id,{ withCredentials: true }).pipe(
 			catchError(this.errorHandler.bind(this)));
   }

@@ -19,7 +19,6 @@ export class SensorsComponent implements OnInit {
   loading = false;	  
   username?: string;
   sensors: ISensor[] = [];
-  //currentSensor: ISensor = {};
   currentIndex = 0;
 
   page = 1;
@@ -70,8 +69,7 @@ export class SensorsComponent implements OnInit {
   logout(): void {
 	this.isLoggedIn = false;
     this.authService.logout().subscribe({
-      next: res => {
-        console.log(res);
+      next: () => {
         this.storageService.clean();
         window.location.reload();
       },
@@ -93,10 +91,8 @@ export class SensorsComponent implements OnInit {
   
   search(): void {
 	  if(!this.searchText.trim()){
-		  console.log("empty");
 		  this.retrieveSensors();
 	  } else {
-		  console.log("data");
 	      this.dataService.getAllSensorsBySearchText(this.page - 1, this.pageSize, this.searchText).subscribe((response) => {
 		 	this.loading = false;	  
 		    const { sensors, totalItems } = response;
@@ -114,8 +110,7 @@ export class SensorsComponent implements OnInit {
   deleteSensor(idSensor:number): void {
 	  this.currentIndex=idSensor;
 	  this.dataService.deleteSensorById(idSensor).subscribe({
-	      next: res => {
-	          console.log(res);
+	      next: () => {
 	          this.retrieveSensors();
 	      }
 	  });
